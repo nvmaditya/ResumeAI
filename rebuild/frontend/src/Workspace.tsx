@@ -73,6 +73,8 @@ export function Workspace({
   const [compiling, setCompiling] = useState(false);
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
   const [pdfBusy, setPdfBusy] = useState(false);
+  // PR3: presentation-only UI state — not a backend field
+  const [pdfStale, setPdfStale] = useState(false);
   const [diagnostics, setDiagnostics] = useState<Diagnostic[]>([]);
   const [checkpoints, setCheckpoints] = useState<Checkpoint[]>([]);
   const [commitMsg, setCommitMsg] = useState("");
@@ -143,6 +145,8 @@ export function Workspace({
 
   function markDirty() {
     setDirty(true);
+    // If a preview blob already exists, edits invalidate it until next successful compile
+    if (pdfUrl) setPdfStale(true);
   }
 
   async function persistIfNeeded(): Promise<boolean> {
@@ -211,6 +215,7 @@ export function Workspace({
       setForm(normalizeForm(refreshed.form));
       setLatex(refreshed.latex_source || "");
       setDirty(false);
+      setPdfStale(false);
       if (chromeFromResume(refreshed).showFormTab) {
         setTab("form");
         setStatus(
@@ -527,7 +532,12 @@ export function Workspace({
       <div className="toolbar" role="toolbar" aria-label="Workspace actions">
         <div className="toolbar-group" data-group="File">
           <span className="group-label">File</span>
-          <button type="button" disabled={saving} onClick={() => void onSave()}>
+          <button
+            type="button"
+            className={dirty ? undefined : "secondary"}
+            disabled={saving}
+            onClick={() => void onSave()}
+          >
             {saving ? "Saving…" : "Save"}
           </button>
           <button
@@ -548,7 +558,7 @@ export function Workspace({
           <span className="group-label">Build</span>
           <button
             type="button"
-            className="secondary"
+            className={!dirty && (!pdfUrl || pdfStale) ? undefined : "secondary"}
             disabled={compiling}
             onClick={() => void onCompile()}
           >
@@ -810,6 +820,9 @@ export function Workspace({
               Click <strong>Compile</strong> for iframe preview (blob URL; no
               pdf.js).
             </p>
+          )}
+          {pdfUrl && pdfStale && !pdfBusy && (
+            <p className="muted small">Preview may be outdated — Compile to refresh.</p>
           )}
           {pdfUrl && (
             <iframe

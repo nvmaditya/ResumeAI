@@ -8,7 +8,7 @@ This directory is a **standalone product workspace** for implementing ResumeAI f
 | [`AGENTS.md`](./AGENTS.md) | Rules for coding agents — **binding process**, product constraints, modular seams |
 | [`PLAN.md`](./PLAN.md) | Phased implementation plan + phase → skill map |
 | [`LESSONS.md`](./LESSONS.md) | Workspace memory: product-intent mistakes |
-| [`STRUCTURE.md`](./STRUCTURE.md) | **Structure-only** IA / chrome inventory of the live rebuild app (Playwright) |
+| [`STRUCTURE.md`](./STRUCTURE.md) | **Structure-only** IA / chrome inventory of the live product app (Playwright) |
 | [`DESIGN.md`](./DESIGN.md) | **Presentation** design system (paper + ledger tokens, motion, quality bar); implements within STRUCTURE chrome; supersedes [`OLD-DESIGN.md`](./OLD-DESIGN.md) |
 | [`docs/product/`](./docs/product/README.md) | Product bible (seeded from repo `docs/product-v2/`) |
 | [`backend/`](./backend/) | FastAPI app — modular seams, health, **auth** + protected `/resumes` |

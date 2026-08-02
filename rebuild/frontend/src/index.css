@@ -1,56 +1,85 @@
-/* Phase 9 — tokens, light/dark, wipe; product chrome wins over pure taste */
+/* Paper/ink design system — DESIGN.md SoT */
 :root,
 [data-theme="light"] {
   font-family: "Segoe UI", system-ui, sans-serif;
   line-height: 1.5;
-  color: #0f172a;
-  background: #f8fafc;
   color-scheme: light;
-  --accent: #059669;
-  --accent-hover: #047857;
-  --accent-soft: #ecfdf5;
-  --danger: #e11d48;
-  --panel: #ffffff;
-  --panel-muted: #f1f5f9;
-  --border: #e2e8f0;
-  --text: #0f172a;
-  --muted: #64748b;
-  --shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.04);
-  --ok: #047857;
-  --err: #b91c1c;
-  --chip: #f1f5f9;
-  --focus: 0 0 0 3px rgba(5, 150, 105, 0.28);
-  --input: #ffffff;
-  --input-border: #e2e8f0;
-  /* Code editor follows light theme (not a permanent dark IDE) */
-  --code-bg: #f8fafc;
-  --code-fg: #0f172a;
-  --code-selection: rgba(5, 150, 105, 0.22);
+  color: var(--text);
+  background: var(--canvas);
+
+  --canvas: #f7f5f0;
+  --surface: #fffefa;
+  --surface-muted: #efece4;
+  --text: #1d1d1a;
+  --text-muted: #716f67;
+  --rule: #dcd8ce;
+  --accent: #8b5219;
+  --accent-hover: #734315;
+  --accent-soft: #f3e8d8;
+  --on-accent: #ffffff;
+  --ok: #3f7555;
+  --build: #b07a2e;
+  --fallback: #776945;
+  --danger: #ab453c;
+  --focus-color: #285b9c;
+  /* CRITICAL: box-shadow string, not a bare color */
+  --focus: 0 0 0 3px color-mix(in srgb, var(--focus-color) 45%, transparent);
+  --input: var(--surface);
+  --input-border: var(--rule);
+  --code-bg: #f3f0e8;
+  --code-fg: var(--text);
+  --code-selection: color-mix(in srgb, var(--accent) 22%, transparent);
+  --pdf-mat: #6b6560;
+  --shadow-pdf: 0 14px 36px -14px rgb(0 0 0 / 35%);
+  --shadow-drawer: -8px 0 24px rgb(0 0 0 / 8%);
+
+  /* Legacy aliases — every live var(--*) consumer */
+  --panel: var(--surface);
+  --panel-muted: var(--canvas);
+  --border: var(--rule);
+  --muted: var(--text-muted);
+  --err: var(--danger);
+  --chip: var(--surface-muted);
+  --shadow: none;
 }
 
 [data-theme="dark"] {
-  color: #e2e8f0;
-  background: #0b1220;
   color-scheme: dark;
-  --accent: #34d399;
-  --accent-hover: #6ee7b7;
-  --accent-soft: #064e3b;
-  --danger: #fb7185;
-  --panel: #111827;
-  --panel-muted: #1e293b;
-  --border: #334155;
-  --text: #e2e8f0;
-  --muted: #94a3b8;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 12px 32px rgba(0, 0, 0, 0.25);
-  --ok: #34d399;
-  --err: #fca5a5;
-  --chip: #1e293b;
-  --focus: 0 0 0 3px rgba(52, 211, 153, 0.35);
-  --input: #0f172a;
-  --input-border: #334155;
+  color: var(--text);
+  background: var(--canvas);
+
+  --canvas: #121418;
+  --surface: #1b1e24;
+  --surface-muted: #15171c;
+  --text: #f1efe9;
+  --text-muted: #a5a5a1;
+  --rule: #30343c;
+  --accent: #e3a55e;
+  --accent-hover: #ebb56f;
+  --accent-soft: #2a2418;
+  --on-accent: #1a1814;
+  --ok: #6db38a;
+  --build: #e0a855;
+  --fallback: #a99769;
+  --danger: #df7167;
+  --focus-color: #82b4f4;
+  --focus: 0 0 0 3px color-mix(in srgb, var(--focus-color) 40%, transparent);
+  --input: #15171c;
+  --input-border: var(--rule);
   --code-bg: #0b1220;
-  --code-fg: #e2e8f0;
-  --code-selection: rgba(56, 189, 248, 0.35);
+  --code-fg: #e8e6e0;
+  --code-selection: color-mix(in srgb, var(--accent) 28%, transparent);
+  --pdf-mat: #3a3a38;
+  --shadow-pdf: 0 14px 36px -14px rgb(0 0 0 / 50%);
+  --shadow-drawer: -8px 0 24px rgb(0 0 0 / 28%);
+
+  --panel: var(--surface);
+  --panel-muted: var(--canvas);
+  --border: var(--rule);
+  --muted: var(--text-muted);
+  --err: var(--danger);
+  --chip: var(--surface-muted);
+  --shadow: none;
 }
 
 html,
@@ -58,8 +87,8 @@ body,
 #root {
   height: 100%;
   margin: 0;
-  background: var(--panel-muted, #f8fafc);
-  color: var(--text, #0f172a);
+  background: var(--canvas);
+  color: var(--text);
 }
 
 body {
@@ -88,8 +117,8 @@ body {
   background: linear-gradient(
     135deg,
     transparent 40%,
-    rgba(15, 23, 42, 0.12) 48%,
-    rgba(15, 23, 42, 0.55) 52%,
+    rgba(29, 29, 26, 0.12) 48%,
+    rgba(29, 29, 26, 0.55) 52%,
     transparent 60%
   );
   background-size: 250% 250%;
@@ -100,8 +129,8 @@ body {
   background: linear-gradient(
     135deg,
     transparent 40%,
-    rgba(248, 250, 252, 0.08) 48%,
-    rgba(248, 250, 252, 0.35) 52%,
+    rgba(247, 245, 240, 0.08) 48%,
+    rgba(247, 245, 240, 0.35) 52%,
     transparent 60%
   );
   background-size: 250% 250%;
@@ -176,7 +205,7 @@ h1 {
 
 .toast {
   padding: 0.65rem 0.9rem;
-  border-radius: 10px;
+  border-radius: 6px;
   background: var(--panel);
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
@@ -186,12 +215,12 @@ h1 {
 }
 
 .toast.ok {
-  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  border-left: 3px solid var(--ok);
   margin: 0;
 }
 
 .toast.err {
-  border-color: color-mix(in srgb, var(--danger) 45%, var(--border));
+  border-left: 3px solid var(--danger);
   margin: 0;
 }
 
@@ -219,7 +248,7 @@ h1 {
   margin-top: 1rem;
   padding: 1rem;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 6px;
   background: var(--panel);
   box-shadow: var(--shadow);
 }
@@ -263,7 +292,7 @@ button {
   border: 1px solid var(--accent);
   border-radius: 8px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   transition: transform 0.15s cubic-bezier(0.32, 0.72, 0, 1),
     background 0.15s ease;
 }
@@ -272,8 +301,8 @@ button:active:not(:disabled) {
   transform: scale(0.98);
 }
 
-[data-theme="dark"] button:not(.secondary):not(.link):not(.chip):not(.theme-toggle) {
-  color: #06281c;
+[data-theme="dark"] button:not(.secondary):not(.link):not(.chip):not(.theme-toggle):not(.tab):not(.danger) {
+  color: var(--on-accent);
 }
 
 button:disabled {
@@ -347,19 +376,22 @@ button.link.title {
   background: var(--chip);
   color: var(--text);
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: 6px;
   padding: 0.15rem 0.6rem;
   font-size: 0.85rem;
 }
 
 .track-chip {
   display: inline-block;
-  font-size: 0.75rem;
-  padding: 0.1rem 0.45rem;
-  border-radius: 4px;
-  background: var(--accent-soft);
-  color: var(--ok);
-  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+  font-family: ui-monospace, "Cascadia Mono", Consolas, "Courier New", monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+  background: var(--surface-muted);
+  color: var(--text-muted);
+  border: 1px solid var(--rule);
 }
 
 .resume-list {
@@ -441,20 +473,26 @@ button.link.title {
 }
 
 .dirty-chip {
-  font-size: 0.75rem;
-  padding: 0.15rem 0.45rem;
-  border-radius: 4px;
-  background: color-mix(in srgb, #fbbf24 22%, var(--panel));
-  border: 1px solid color-mix(in srgb, #fbbf24 45%, var(--border));
-  color: var(--text);
+  font-family: ui-monospace, "Cascadia Mono", Consolas, "Courier New", monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--build) 15%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--build) 35%, var(--rule));
+  color: var(--build);
 }
 
 .saved-chip {
-  font-size: 0.75rem;
-  padding: 0.15rem 0.45rem;
-  border-radius: 4px;
-  background: var(--accent-soft);
-  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+  font-family: ui-monospace, "Cascadia Mono", Consolas, "Courier New", monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--ok) 12%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--ok) 30%, var(--rule));
   color: var(--ok);
 }
 
@@ -481,10 +519,11 @@ button.link.title {
 }
 
 .group-label {
-  font-size: 0.7rem;
+  font-family: ui-monospace, "Cascadia Mono", Consolas, "Courier New", monospace;
+  font-size: 0.6875rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--muted);
+  color: var(--text-muted);
   margin-right: 0.15rem;
 }
 
@@ -528,7 +567,7 @@ button.link.title {
 .rail,
 .pdf-pane {
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 6px;
   background: var(--panel);
   padding: 0.75rem;
   min-height: 0;
@@ -559,7 +598,7 @@ button.link.title {
 
 .editor {
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 6px;
   background: var(--panel);
   display: flex;
   flex-direction: column;
@@ -798,7 +837,7 @@ button.compact:disabled {
   height: 100%;
   border: 1px solid var(--border);
   border-radius: 4px;
-  background: #5c5c5c;
+  background: var(--pdf-mat);
   display: block;
 }
 
@@ -855,7 +894,7 @@ button.compact:disabled {
   flex-direction: column;
   gap: 0.2rem;
   padding: 0.4rem 0;
-  border-bottom: 1px solid #e8e8e8;
+  border-bottom: 1px solid var(--rule);
   font-size: 0.8rem;
 }
 
@@ -881,20 +920,24 @@ button.compact:disabled {
   padding: 0;
   font-size: 0.8rem;
   cursor: pointer;
-  color: #1a5fb4;
+  color: var(--accent);
   text-decoration: underline;
 }
 
 .version-actions .link.danger {
-  color: #a51d2d;
+  color: var(--danger);
 }
 
 .engine-chip {
-  font-size: 0.75rem;
-  padding: 0.1rem 0.4rem;
-  border-radius: 4px;
-  background: #eef6ff;
-  border: 1px solid #c5d8f0;
+  font-family: ui-monospace, "Cascadia Mono", Consolas, "Courier New", monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+  background: var(--surface-muted);
+  color: var(--text-muted);
+  border: 1px solid var(--rule);
 }
 
 /* Phase 7 ï¿½ settings drawer + score rail (structure + calm accents) */
@@ -907,7 +950,7 @@ button.compact:disabled {
 .settings-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.35);
+  background: rgba(29, 29, 26, 0.35);
   z-index: 40;
   display: flex;
   justify-content: flex-end;
@@ -918,7 +961,7 @@ button.compact:disabled {
   height: 100%;
   background: var(--panel);
   border-left: 1px solid var(--border);
-  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-drawer);
   padding: 1rem 1.1rem 2rem;
   overflow: auto;
   box-sizing: border-box;
@@ -977,9 +1020,9 @@ button.compact:disabled {
 }
 
 .score-step.active {
-  border-color: var(--accent);
-  color: var(--ok);
-  background: var(--accent-soft);
+  border-color: color-mix(in srgb, var(--build) 50%, var(--rule));
+  color: var(--build);
+  background: color-mix(in srgb, var(--build) 10%, var(--surface));
   font-weight: 600;
 }
 
