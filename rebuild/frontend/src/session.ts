@@ -1,0 +1,24 @@
+/** Client bearer session (Phase 1). */
+
+const KEY = "resumeai_token";
+
+export function getToken(): string | null {
+  try {
+    return localStorage.getItem(KEY);
+  } catch {
+    return null;
+  }
+}
+
+export function setToken(token: string): void {
+  localStorage.setItem(KEY, token);
+}
+
+export function clearToken(): void {
+  localStorage.removeItem(KEY);
+}
+
+export function authHeaders(): HeadersInit {
+  const t = getToken();
+  return t ? { Authorization: `Bearer ${t}` } : {};
+}

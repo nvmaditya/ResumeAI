@@ -1,0 +1,5 @@
+# API — use monorepo backend .venv or: pip install -r requirements.txt
+fastapi>=0.110
+uvicorn[standard]>=0.27
+httpx>=0.27
+pytest>=8.0
