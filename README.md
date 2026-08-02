@@ -4,6 +4,24 @@ Local-first AI resume optimization app (SaaS-ready seams). **FastAPI + React**, 
 
 **Repo:** https://github.com/nvmaditya/ResumeAI · **branch:** `main`
 
+### Product docs (rebuild-from-scratch)
+
+Exhaustive **current-state** product documentation (features, flows, constraints—no code walkthrough):
+
+| Edition | Path | Notes |
+|---------|------|--------|
+| **Improved (preferred for rebuild)** | [`docs/product-v2/README.md`](docs/product-v2/README.md) | Journey-first, workspace modes, outcomes matrices |
+| **Original (preserved)** | [`docs/product/README.md`](docs/product/README.md) | First full product bible; kept intact |
+| **What changed / better** | [`docs/product-v2/WHAT_CHANGED.md`](docs/product-v2/WHAT_CHANGED.md) | Concrete deltas between editions |
+
+### Fresh rebuild workspace
+
+Greenfield rebuild home (docs copy + **new** current-state PRD, AGENTS, plan)—**not** the live `backend/`/`frontend/` tree:
+
+→ **[`rebuild/README.md`](rebuild/README.md)** · [`rebuild/PRD.md`](rebuild/PRD.md) · [`rebuild/AGENTS.md`](rebuild/AGENTS.md) · [`rebuild/PLAN.md`](rebuild/PLAN.md)
+
+Root README stays the quick start + feature summary; monorepo root `PRD.md` is vision history; **rebuild/PRD.md** is the binding current-product contract for rebuilds.
+
 ## Features (current)
 
 | Area | What you get |
